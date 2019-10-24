@@ -7,6 +7,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 30%;
+    margin-bottom: 10%;
     .Game-header{
         width: 100%;
         background: linear-gradient(-45deg, #673ab7, #9c27b0);
@@ -57,6 +59,10 @@
     }
 }
 
+.Game-description {
+    font-style: italic;
+    color: white;
+  }
 @keyframes Gradient{
     0%{
         background-position: 0% 50%;
