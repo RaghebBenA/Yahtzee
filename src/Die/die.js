@@ -7,7 +7,7 @@ const Die = ({ locked, val,handleClick,idx ,allLocked,rolling}) => {
     handleClick(idx)
   }
  const numWords = ["one","two","three","four","five","six"]
- let classes = `Die fa fa-dice-${numWords[val -1]} fa-5x `
+ let classes = `Die fa fa-dice-${numWords[val -1]} `
  if(locked) classes +=  "Die-locked "
  if(rolling && !locked) classes += "Die-rolling"
   return (

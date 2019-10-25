@@ -3,7 +3,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .App-title {
@@ -14,4 +13,10 @@
   display: inline-block;
   font-size: 5rem;
   width: 50%;
+}
+
+@media only screen and (max-width: 480px){
+  .App-title{
+    width: 100%;
+  }
 }
