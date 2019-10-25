@@ -4,7 +4,7 @@ import "./Game.scss";
 import ScoreTable from "../scoreTable/scoreTable";
 
 const NUM_DICE = 5;
-const NUM_ROLLS = 2;
+const NUM_ROLLS = 3;
 
 const Game = () => {
   const [dice, setDice] = useState(
@@ -12,6 +12,7 @@ const Game = () => {
   );
   const [locked, setLocked] = useState(Array(NUM_DICE).fill(false));
   const [roolsLeft, setRoolsLeft] = useState(NUM_ROLLS);
+  const [rolling, setRolling] = useState(false);
   const [scores, setScores] = useState({
     ones: undefined,
     twos: undefined,
@@ -36,17 +37,24 @@ const Game = () => {
       roolsLeft > 1 ? locked : Array(NUM_DICE).fill(true)
     );
     setRoolsLeft((roolsLeft) => roolsLeft - 1);
+    setRolling(false);
+  };
+
+  const animateRolling = () => {
+    setRolling(true);
+    setTimeout(() => {
+      roll();
+    }, 1000);
   };
 
   const toggleLocked = (idx) => {
-      
-        setLocked((locked) => [
-            ...locked.slice(0, idx),
-            !locked[idx],
-            ...locked.slice(idx + 1)
-          ]);
-  
- 
+    if (!rolling) {
+      setLocked((locked) => [
+        ...locked.slice(0, idx),
+        !locked[idx],
+        ...locked.slice(idx + 1)
+      ]);
+    }
   };
 
   const doScore = (rulename, ruleFn) => {
@@ -58,6 +66,16 @@ const Game = () => {
     );
   };
 
+  const displayRolling = () =>{
+    const message = [
+      "0 Rolls Left",
+      "1 Roll Left",
+      "2 Rolls Left",
+      "Starting Round"
+    ]
+    return  message[roolsLeft]
+  }
+
   return (
     <div className="Game">
       <header className="Game-header">
@@ -68,14 +86,15 @@ const Game = () => {
             locked={locked}
             handleClick={toggleLocked}
             allLocked={roolsLeft === 0}
+            rolling={rolling}
           />
           <div className="Game-button-wrapper">
             <button
               className="Game-reroll"
-              disabled={locked.every((x) => x)}
-              onClick={roll}
+              disabled={locked.every((x) => x) || rolling}
+              onClick={animateRolling}
             >
-              {roolsLeft}
+              {displayRolling()}
             </button>
           </div>
         </section>
